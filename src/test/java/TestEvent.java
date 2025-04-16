@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
+import jackson.json.format.Event;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 
@@ -10,13 +11,13 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
+import static jackson.json.format.InstantDeserializer.TS_FORMAT;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestEvent {
-
     private static final Event event = new Event();
 
-    private static final String createdAt = DateTimeFormatter.ofPattern(Event.TS_FORMAT)
+    private static final String createdAt = DateTimeFormatter.ofPattern(TS_FORMAT)
             .withZone(ZoneId.from(ZoneOffset.UTC))
             .format(event.getCreatedAt());
 

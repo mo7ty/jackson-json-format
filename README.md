@@ -6,5 +6,5 @@ The three [`TestEvent`](https://github.com/mo7ty/jackson-json-format/blob/master
 * :x: `withGson`
 
 Possible changes on:
-* [`class Event`](https://github.com/mo7ty/jackson-json-format/blob/master/src/main/java/Event.java)
+* [`class jackson.json.format.Event`](https://github.com/mo7ty/jackson-json-format/blob/master/src/main/java/jackson.json.format.Event.java)
 * [`build.gradle`](https://github.com/mo7ty/jackson-json-format/blob/master/build.gradle)

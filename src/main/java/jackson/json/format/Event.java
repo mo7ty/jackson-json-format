@@ -1,11 +1,15 @@
+package jackson.json.format;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.Instant;
 
+import static jackson.json.format.InstantDeserializer.TS_FORMAT;
+
 public class Event {
 
-    public static final String TS_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-
+    @JsonDeserialize(using = InstantDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = TS_FORMAT, timezone = "UTC")
     private Instant createdAt = Instant.now();
 
