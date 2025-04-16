@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
 import static java.util.Objects.hash;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class UserDeserializationTest {
 
@@ -51,14 +53,20 @@ public class UserDeserializationTest {
 
     @Test
     public void testUserDeserializationWithSingleObjectMapper() throws Exception {
-        String json = "{\"username\": \"Bob\", \"age\": 25}";
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.addMixIn(User.class, UserMixin.class);
 
-        User user1 = mapper.readValue(json, User.class);
-        User user2 = mapper.readValue(json.replace("username", UserMixin.USER_NAME), User.class);
+        String json1 = "{\"username\": \"Bob\", \"age\": 25}";
+        assertThat(json1).doesNotContain(UserMixin.USER_NAME);
 
+        String json2 = json1.replace("username", UserMixin.USER_NAME);
+        assertThat(json2).contains(UserMixin.USER_NAME);
+
+        assertNotEquals(json1, json2);
+
+        User user1 = mapper.readValue(json1, User.class);
+        User user2 = mapper.readValue(json2, User.class);
         assertEquals(user1, user2);
     }
 }
